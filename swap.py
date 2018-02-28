@@ -1,3 +1,5 @@
+import sys
+
 def endian_swap(val):
   val = list(val)
   if len(val) % 2 != 0:
@@ -19,8 +21,4 @@ def endian_swap(val):
 
   return res
 
-print(endian_swap("deadbeef00000000000000000000000000000000"))
-
-if __name__ == "__main__":
-  assert endian_swap("1234") == "\\34\\12"
-  assert endian_swap("123") == None
+print(endian_swap(sys.argv[1]))
