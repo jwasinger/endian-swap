@@ -1,4 +1,7 @@
-import sys
+import sys, getopt, binascii
+
+optlist, args = getopt.getopt(sys.argv[1:], ':a:b')
+
 
 # convert a big-endian bytecode value to little endian, placing '\' between bytes to appease the wasm gods
 def endian_swap_wasm(val, littleEndian=True):
@@ -23,4 +26,9 @@ def endian_swap_wasm(val, littleEndian=True):
 
   return res
 
-print(endian_swap_wasm(sys.argv[1], len(sys.argv) > 2 and sys.argv[2] == 'littlendian'))
+st = None
+with open(sys.argv[1], 'rb') as myfile:
+  content = myfile.read()
+  st = binascii.hexlify(content)
+
+print(endian_swap_wasm(st, len(sys.argv) > 2 and sys.argv[1] == 'littlendian'))
